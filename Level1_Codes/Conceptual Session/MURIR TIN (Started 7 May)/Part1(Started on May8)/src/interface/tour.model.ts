@@ -12,3 +12,5 @@ interface ITour{
     startLocation:string
 slug:string
 }
+
+export default ITour
