@@ -8,4 +8,31 @@ const createUser = async(payload:IUser) => {
     return result
 }
 
-export const UserService={createUser}
+
+
+const getUser = async() => {
+    const result = await User.find()
+    return result
+}
+
+
+const getSingleUser = async(id:string):Promise<IUser|null> => {
+    const result = await User.findById(id)
+    return result
+}
+
+const updateUser = async(id:string,userData:IUser):Promise<IUser|null> => {
+    const result = await User.findByIdAndUpdate(id, userData, {
+        new: true,
+        runValidators:true
+
+    })
+
+    return result
+}
+
+
+
+
+
+export const UserService={createUser,getUser,getSingleUser,updateUser}

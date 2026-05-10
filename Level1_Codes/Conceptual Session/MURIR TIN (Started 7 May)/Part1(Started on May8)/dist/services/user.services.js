@@ -9,4 +9,19 @@ const createUser = async (payload) => {
     const result = await user_model_1.default.create(payload);
     return result;
 };
-exports.UserService = { createUser };
+const getUser = async () => {
+    const result = await user_model_1.default.find();
+    return result;
+};
+const getSingleUser = async (id) => {
+    const result = await user_model_1.default.findById(id);
+    return result;
+};
+const updateUser = async (id, userData) => {
+    const result = await user_model_1.default.findByIdAndUpdate(id, userData, {
+        new: true,
+        runValidators: true
+    });
+    return result;
+};
+exports.UserService = { createUser, getUser, getSingleUser, updateUser };
