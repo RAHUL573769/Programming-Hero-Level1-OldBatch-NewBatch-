@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, Query, Schema } from "mongoose";
 import IUser from "../interface/user.interface";
 
 
@@ -28,5 +28,19 @@ const userSchema = new Schema<IUser>({
 })
 
 
-const User = model<IUser>("User", userSchema)
+
+
+
+// // PRE QUERY MIDDLEWARE
+// userSchema.pre(/^find/, function (this: Query<any, IUser>, next: NextFunction) {
+//   console.log("Before Find Query");
+
+//   // filter active users
+//   this.find({ userStatus: "active" });
+
+//   next();
+// });
+
+const User = model<IUser>("User", userSchema);
+
 export default User

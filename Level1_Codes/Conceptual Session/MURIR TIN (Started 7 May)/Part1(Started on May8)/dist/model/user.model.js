@@ -24,5 +24,12 @@ const userSchema = new mongoose_1.Schema({
         default: "active"
     }
 });
+// // PRE QUERY MIDDLEWARE
+// userSchema.pre(/^find/, function (this: Query<any, IUser>, next: NextFunction) {
+//   console.log("Before Find Query");
+//   // filter active users
+//   this.find({ userStatus: "active" });
+//   next();
+// });
 const User = (0, mongoose_1.model)("User", userSchema);
 exports.default = User;
