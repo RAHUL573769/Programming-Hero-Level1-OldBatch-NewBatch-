@@ -5,7 +5,8 @@
   "main": "array.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": " nodemon watch  second.js"
+    "dev": " nodemon watch  second.js",
+    "dev1": " nodemon watch  htttps.js"
   },
   "keywords": [],
   "author": "",
