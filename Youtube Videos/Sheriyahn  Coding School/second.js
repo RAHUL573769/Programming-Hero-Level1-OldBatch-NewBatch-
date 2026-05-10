@@ -1,41 +1,55 @@
 // programming language
 
-
-//
-
+// File System Operations in Node.js
 // writeFile
-    //appendFile
-    // copyfile
-    // rename
+// appendFile
+// copyFile
+// rename
 // unlink
 
+const fs = require("fs");
 
-const fs = require("fs")
-fs.writeFile("hey.txt", "hey helllo ", (err) => {
+// 1. Create and write file
+fs.writeFile("hey.txt", "hey hello ", (err) => {
     if (err) {
-        console.log(err)
+        console.log(err);
+    } else {
+        console.log("File created successfully");
     }
-    else {
-        console.log("done")
-    }
-})
+});
 
-fs.appendFile("hey.txt", "hey helllo1 ", (err) => {
+// 2. Append data to file
+fs.appendFile("hey.txt", "hey hello1 ", (err) => {
     if (err) {
-        console.log(err)
+        console.log(err);
+    } else {
+        console.log("Data appended successfully");
     }
-    else {
-        console.log("done")
-    }
-})
+});
 
-
-fs.rename("hey.txt", "hello.txt", function (err) {
-
+// 3. Rename file
+fs.rename("hey.txt", "hello.txt", (err) => {
     if (err) {
-        console.log(err)
+        console.log(err);
+    } else {
+        console.log("File renamed successfully");
     }
-    else {
-        console.log("Hiiiiiiii")
+});
+
+// 4. Copy file
+fs.copyFile("hello.txt", "./copy2/copy.txt", (err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("File copied successfully");
     }
-})
+});
+
+// 5. Delete file
+// fs.unlink("hello.txt", (err) => {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log("File deleted successfully");
+//     }
+// });
