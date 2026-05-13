@@ -1,14 +1,42 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import User from "../model/user.model";
 import { UserService } from '../services/user.services';
 import console from "node:console";
 
+// const successResponse=<T>(res: Response, data: T) => {
 
-const createUserController=  async (req: Request, res: Response) => {
+// }
+
+// interface TResponse<T>{
+//     statusCode: number
+//     status: "success" | "failed"
+//     data:T|T[]|null
+// }
+
+type TResponse<T> = {
+  statusCode: number;
+  status: "success" | "failed";
+  message: string;
+  data: T | T[] | null;
+};
+
+const successResponse = <T>(
+  res: Response,
+  responseData: TResponse<T>
+) => {
+  res.status(responseData.statusCode).json({
+    status: responseData.status,
+    message: responseData.message,
+    data: responseData.data,
+  });
+};
+
+const createUserController=  async (req: Request, res: Response,next:NextFunction) => {
 
     try {
         const userData = req.body;
         const result = await UserService.createUser(req.body)
+        // throw new Error("ndr")
         res.status(200).json({
             status:"Success",
             message: "Data Created",
@@ -18,10 +46,11 @@ const createUserController=  async (req: Request, res: Response) => {
         })
 
     } catch (error) {
-        res.status(500).json({
-            status:"Fsiled",
-            message:"Failed To Create User"
-        })
+        next(error)
+        // res.status(500).json({
+        //     status:"Fsiled",
+        //     message:"Failed To Create User"
+        // })
     }
 
 }

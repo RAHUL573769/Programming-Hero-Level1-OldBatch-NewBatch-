@@ -5,6 +5,7 @@ import IUser from "../interface/user.interface";
 
 const createUser = async(payload:IUser) => {
     const result = await User.create(payload)
+
     return result
 }
 

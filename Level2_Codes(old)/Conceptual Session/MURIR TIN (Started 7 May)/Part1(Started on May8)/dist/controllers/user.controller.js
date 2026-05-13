@@ -5,10 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_services_1 = require("../services/user.services");
 const node_console_1 = __importDefault(require("node:console"));
+const successResponse = (res, responseData) => {
+    res.status(responseData.statusCode).json({
+        status: responseData.status,
+        message: responseData.message,
+        data: responseData.data,
+    });
+};
 const createUserController = async (req, res) => {
     try {
         const userData = req.body;
         const result = await user_services_1.UserService.createUser(req.body);
+        // throw new Error("ndr")
         res.status(200).json({
             status: "Success",
             message: "Data Created",
