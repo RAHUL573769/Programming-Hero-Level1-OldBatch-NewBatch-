@@ -4,10 +4,14 @@ import IUser from "../interface/user.interface";
 
 const userSchema = new Schema<IUser>({
     name: {
-        type:String
+        type:String,
+        unique:true,
+        required:[true,"Nmae is Needed"]
     },
     age: {
-        type:String
+        type: String,
+           unique:true,
+
     },
     email: {
         type:String

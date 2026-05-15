@@ -45,7 +45,7 @@ const createUserController = catchAsyncFunction(
     async (req: Request, res: Response) => {
 
         const userData = req.body;
-
+// throw new Error("Val")
         const result = await UserService.createUser(userData);
 
         successResponse(res, {

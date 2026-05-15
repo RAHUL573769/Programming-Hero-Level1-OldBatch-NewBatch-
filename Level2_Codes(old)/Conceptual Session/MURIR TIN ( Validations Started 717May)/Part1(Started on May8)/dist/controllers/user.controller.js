@@ -41,6 +41,7 @@ const catchAsync_1 = require("../helpers/catchAsync");
 // };
 const createUserController = (0, catchAsync_1.catchAsyncFunction)(async (req, res) => {
     const userData = req.body;
+    // throw new Error("Val")
     const result = await user_services_1.UserService.createUser(userData);
     (0, successRespose_1.successResponse)(res, {
         status: "success",
