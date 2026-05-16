@@ -5,15 +5,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.globalErrorHandler = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
+const handleValidationError_1 = require("../helpers/handleValidationError");
 const globalErrorHandler = (err, request, res, next) => {
-    //-------------setting here
+    //------------=======================-setting here
     // const statusCode = err.statusCode || 500
     // const message = err.message
     // const status = false
     // let statusCode = err.statusCode || 500
     // let message = err.message
     // let status = false
-    const errorResponse = {
+    //------------=================================-setting here
+    // const errorResponse: TErrorResponse = {
+    //   status:"error",
+    //   statusCode:400,
+    //   message: "error found",
+    //   issues: [
+    //     {
+    //       path:"",
+    //       message:""
+    //     }
+    //   ]
+    // }
+    let errorResponse = {
         status: "error",
         statusCode: 400,
         message: "error found",
@@ -24,37 +37,43 @@ const globalErrorHandler = (err, request, res, next) => {
             }
         ]
     };
-    let statusCode = errorResponse.statusCode;
-    let message = errorResponse.message;
-    let status = errorResponse.status;
-    let issues = errorResponse.issues;
+    //   let statusCode = errorResponse.statusCode
+    // let message = errorResponse.message
+    // let status = errorResponse.status
+    // let issues=errorResponse.issues
     //-----------setting here
     if (err.name && err instanceof mongoose_1.default.Error.ValidationError) {
         console.log("Ami Validation error");
-        errorResponse.statusCode = 400;
-        errorResponse.message = "Validation ERror";
-        errorResponse.status = "error";
-        const errorValues = Object.values(err.errors);
-        console.log(errorValues); //transform objects to arrays
-        errorValues.map((x) => {
-            errorResponse.issues.push({
-                path: x.path,
-                message: x.message
-            });
-            // return {
-            //   path: x.path,
-            //   message: x.message,
-            // };
-        });
+        errorResponse = (0, handleValidationError_1.handleValidationError)(err);
+        //  errorResponse.statusCode=400
+        // errorResponse.message = "Validation ERror"
+        // errorResponse.status = "error"
+        //     const errorValues = Object.values(err.errors)
+        //   console.log(errorValues) //transform objects to arrays
+        //   errorValues.map(
+        //     (x: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
+        //       errorResponse.issues.push({
+        //         path:x.path,
+        //         message:x.message
+        //       })
+        //       //////////////////////////////
+        //     // return {
+        //     //   path: x.path,
+        //     //   message: x.message,
+        //     // };
+        //   }
+        // );
         // statusCode=501
         // message = "Validations"
         // status=false
     }
+    // ===============
     //   res.status(errorResponse.statusCode).json({
     //     message:message,
     //     status,
     // error:err
     //   })
+    // ===============
     res.status(errorResponse.statusCode).json({
         message: errorResponse.message,
         status: errorResponse.status,

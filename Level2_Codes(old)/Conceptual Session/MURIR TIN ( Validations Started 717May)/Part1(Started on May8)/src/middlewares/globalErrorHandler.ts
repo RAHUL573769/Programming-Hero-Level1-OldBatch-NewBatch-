@@ -1,22 +1,12 @@
 import { NextFunction, Request, Response } from "express"
 import mongoose from "mongoose"
+import { handleValidationError } from "../helpers/handleValidationError"
+import { TErrorResponse } from "../types/errorTypes"
 
 
-type TErrorResponse = {
-  //messi pm
-  message: string
-  statusCode: number
-  status: "error"
 
-  issues: [
-    {path:string,
-      message:string,
-
-    }
-  ]
-}
 export const globalErrorHandler=  (err: any, request: Request, res: Response, next: NextFunction) => {
-    //-------------setting here
+    //------------=======================-setting here
 
 
 
@@ -26,8 +16,22 @@ export const globalErrorHandler=  (err: any, request: Request, res: Response, ne
   // let statusCode = err.statusCode || 500
   // let message = err.message
   // let status = false
+  //------------=================================-setting here
+  // const errorResponse: TErrorResponse = {
+  //   status:"error",
+  //   statusCode:400,
+  //   message: "error found",
+  //   issues: [
+  //     {
+  //       path:"",
+  //       message:""
+  //     }
+  //   ]
 
-  const errorResponse: TErrorResponse = {
+  // }
+
+
+    let errorResponse: TErrorResponse = {
     status:"error",
     statusCode:400,
     message: "error found",
@@ -40,31 +44,35 @@ export const globalErrorHandler=  (err: any, request: Request, res: Response, ne
 
   }
 
-    let statusCode = errorResponse.statusCode
-  let message = errorResponse.message
-  let status = errorResponse.status
-  let issues=errorResponse.issues
+  //   let statusCode = errorResponse.statusCode
+  // let message = errorResponse.message
+  // let status = errorResponse.status
+  // let issues=errorResponse.issues
   //-----------setting here
 
   if (err.name && err instanceof mongoose.Error.ValidationError) {
     console.log("Ami Validation error")
-     errorResponse.statusCode=400
-    errorResponse.message = "Validation ERror"
-    errorResponse.status = "error"
-    const errorValues = Object.values(err.errors)
-  console.log(errorValues) //transform objects to arrays
-  errorValues.map(
-    (x: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
-      errorResponse.issues.push({
-        path:x.path,
-        message:x.message
-      })
-    // return {
-    //   path: x.path,
-    //   message: x.message,
-    // };
-  }
-);
+     errorResponse=handleValidationError(err)
+    //  errorResponse.statusCode=400
+    // errorResponse.message = "Validation ERror"
+    // errorResponse.status = "error"
+//     const errorValues = Object.values(err.errors)
+//   console.log(errorValues) //transform objects to arrays
+//   errorValues.map(
+//     (x: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
+//       errorResponse.issues.push({
+//         path:x.path,
+//         message:x.message
+//       })
+
+
+//       //////////////////////////////
+//     // return {
+//     //   path: x.path,
+//     //   message: x.message,
+//     // };
+//   }
+// );
 
 
 
@@ -73,12 +81,14 @@ export const globalErrorHandler=  (err: any, request: Request, res: Response, ne
     // status=false
 
   }
+    // ===============
 //   res.status(errorResponse.statusCode).json({
 //     message:message,
 //     status,
 // error:err
 
-//   })
+  //   })
+  // ===============
   res.status(errorResponse.statusCode).json({
     message:errorResponse.message,
     status: errorResponse.status,
@@ -98,6 +108,7 @@ export const globalErrorHandler=  (err: any, request: Request, res: Response, ne
 
 // export default globalErrorHandler
 // import { NextFunction, Request, Response } from 'express'
+
 
 // /* eslint-disable @typescript-eslint/no-explicit-any */
 // const globalErrorHandler = (
