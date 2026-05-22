@@ -1,0 +1,1 @@
+{"version":3,"file":"variables.js","sourceRoot":"","sources":["../../src/variablea/variables.ts"],"names":[],"mappings":";;AAAA,CAAC;IACG,IAAI,SAAS,GAAW,aAAa,CAAA;IACrC,OAAO,CAAC,GAAG,CAAC,SAAS,CAAC,CAAA;IAEtB,IAAI,QAAQ,GAAW,EAAE,CAAA;IACzB,OAAO,CAAC,GAAG,CAAC,QAAQ,CAAC,CAAA;IACrB,IAAI,MAAM,GAAY,KAAK,CAAA;IAC3B,OAAO,CAAC,GAAG,CAAC,MAAM,CAAC,CAAA;AACvB,CAAC"}
