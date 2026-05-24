@@ -1,0 +1,2 @@
+It gives type safety
+It is a superset of javascript
