@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
     };
     const result1 = kgToGramConverter("2 kg");
     console.log(result1);
-    const user1 = {};
     const interface3 = {
         age: 45,
         role: "admin"
@@ -26,5 +25,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
         return a + b;
     };
     console.log(add(10, 20));
+    const rahul = {
+        name: "Rahul",
+        age: 24,
+        role: "admin"
+    };
+    console.log(rahul);
+    const add5 = (a1, a2) => {
+        return a1 + a2;
+    };
+    console.log(add5(12, 34));
 }
 //# sourceMappingURL=server.js.map

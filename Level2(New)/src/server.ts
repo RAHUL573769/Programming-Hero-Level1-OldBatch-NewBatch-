@@ -23,9 +23,7 @@
         role: "admin" | "user"
     }
     type UserWithRole = User & Role
-    const user1: User = {
 
-    }
     //interface:object,function
    interface IUser {
     age: number;
@@ -68,4 +66,31 @@ console.log(add(10, 20));
         (num1:number,number2:number):number
     }
 
+
+
+    type UserDetails={
+
+        name: string
+        age:number
+    }
+    type userRole = {
+        role:"admin"
+    }
+    type UserDetailRole = UserDetails & userRole
+    const rahul: UserDetailRole = {
+        name:"Rahul",
+        age:24,
+        role:"admin"
+    }
+    console.log(rahul)
+
+   interface UserFunction {
+    (a1: number, a2: number): number
+}
+
+const add5: UserFunction = (a1, a2) => {
+    return a1 + a2
+}
+
+console.log(add5(12, 34))
 }
