@@ -93,4 +93,84 @@ const add5: UserFunction = (a1, a2) => {
 }
 
 console.log(add5(12, 34))
+
+    //generic
+
+
+    const friends5: string[] = ["my4"]
+    const rollNumber:number[]=[1,2,3,4,5,6,7,8,9]
+
+
+    //dybanic genelearlized
+    const friendsGeneric: Array<string> = ["Mrx", "Mrb"]
+    console.log("fiendsGeneric",friendsGeneric)
+    console.log("fiendsGeneric", friendsGeneric)
+
+    type GenericMain<T> = Array<T>
+
+
+    const friendsGeneric1: GenericMain<string> = [];
+
+    type CoOrdinates<A, B> = [A, B];
+
+
+
+    //generic with interface
+
+    type User4 = {
+        name: string
+        age:number
+    }
+
+
+    interface Developer<T,X>{
+        name: string
+        salary: number
+        smartWatch: T
+        bike:X
+
+
+
+    }
+
+    const poorDeveloper: Developer<{}, "Yamaha"> = {
+        name: "Rahul Rudra",
+        salary: 1500,
+        smartWatch: {},
+        bike: "Yamaha"
+
+    };
+
+
+
+    type richDeveloperWatch={
+
+        name:"Yamaha"
+    }
+    type richDeveloperBike = {
+        name:"Yamakax"
+    }
+    const richDeveloper: Developer<richDeveloperWatch, richDeveloperBike> = {
+        name:"Rahul1",
+        salary: 3456,
+        smartWatch: {
+            name:"Yamaha"
+        },
+        bike: {
+    name:"Yamakax"
+}
+
+
+
+        }
+    console.log("Poooer Developer",poorDeveloper)
+
+
+
+    const genericFunction =<T> (value: T): T => {
+        return value
+
+    }
+
+
 }
