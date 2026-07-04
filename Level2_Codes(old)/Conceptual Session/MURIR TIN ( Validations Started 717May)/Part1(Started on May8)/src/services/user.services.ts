@@ -17,7 +17,7 @@ const getUser = async() => {
 }
 
 
-const getSingleUser = async(id:string):Promise<IUser|null> => {
+const getSingleUser1 = async(id:string):Promise<IUser|null> => {
     const result = await User.findById(id)
     return result
 }
@@ -36,4 +36,4 @@ const updateUser = async(id:string,userData:IUser):Promise<IUser|null> => {
 
 
 
-export const UserService={createUser,getUser,getSingleUser,updateUser}
+export const UserService={createUser,getUser,getSingleUser1,updateUser}

@@ -53,7 +53,7 @@ app.get('/', (req:Request, res:Response) => {
 //     path: req.path
 //   });
 // });
-// app.use('*',notFound)
+app.use('*',notFound)
 app.use(globalErrorHandler)
 
 // app.use(

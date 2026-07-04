@@ -110,7 +110,7 @@ const getUserController = async (req: Request, res: Response) => {
 const getSingleUserController = async (req: Request, res: Response) => {
     try {
         console.log(req.params.id)
-        const result = await UserService.getSingleUser(req.params.id as string)
+        const result = await UserService.getSingleUser1(req.params.id as string)
             res.status(200).json({
             status:"Success",
             message: "Data Created",
