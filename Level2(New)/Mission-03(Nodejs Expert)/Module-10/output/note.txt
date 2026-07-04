@@ -1,0 +1,160 @@
+The main difference between fs.readFileSync() and fs.readFile() is how they execute.
+
+fs.readFileSync()	fs.readFile()
+Synchronous	Asynchronous
+Waits until the file is completely read	Doesn't wait; continues executing the next lines
+Returns the file data directly	Returns nothing; uses a callback (or Promise)
+Blocks the Node.js event loop	Doesn't block the event loop
+Simpler for scripts	Better for web servers and production apps
+1. fs.readFileSync() (Synchronous)
+const fs = require("fs");
+
+console.log("Start");
+
+const data = fs.readFileSync("dairy.txt", "utf8");
+
+console.log(data);
+
+console.log("End");
+Output
+Start
+Hello Rahul
+End
+Execution
+Start
+   │
+Read File  ← Program waits here
+   │
+Print File
+   │
+End
+
+The program stops at readFileSync() until the file has been read.
+
+2. fs.readFile() (Asynchronous)
+const fs = require("fs");
+
+console.log("Start");
+
+fs.readFile("dairy.txt", "utf8", (err, data) => {
+    if (err) {
+        console.log(err.message);
+        return;
+    }
+
+    console.log(data);
+});
+
+console.log("End");
+Output
+Start
+End
+Hello Rahul
+Execution
+Start
+   │
+Read File (starts in background)
+   │
+End
+   │
+File Finished
+   │
+Print File
+
+Node.js starts reading the file in the background and immediately moves to the next line.
+
+Why is readFile() better for servers?
+
+Imagine an Express server:
+
+Using readFileSync()
+User A requests file
+      │
+Server waits...
+      │
+User B must wait
+      │
+User C must wait
+
+Only one request can proceed while the file is being read.
+
+Using readFile()
+User A requests file
+      │
+Reading starts...
+      │
+Server handles User B
+      │
+Server handles User C
+      │
+File finishes → Response sent to User A
+
+The server can continue handling other requests while waiting for the file.
+
+Which one should you use?
+✅ Use fs.readFileSync() for:
+Small scripts
+Learning
+Configuration files read during application startup
+✅ Use fs.readFile() (or fs.promises.readFile()) for:
+Express/Node.js servers
+APIs
+Applications where performance and responsiveness matter
+
+In real-world Node.js applications, asynchronous methods (readFile) are generally preferred because they keep the event loop free to handle other work.
+
+
+
+
+-----------
+Here's the simplest way to understand it.
+
+fs.readFileSync() = Wait
+const data = fs.readFileSync("dairy.txt", "utf8");
+console.log(data);
+
+console.log("Done");
+
+Output:
+
+Hello Rahul
+Done
+
+👉 The program waits until the file is completely read, then moves to the next line.
+
+fs.readFile() = Don't Wait
+fs.readFile("dairy.txt", "utf8", (err, data) => {
+    console.log(data);
+});
+
+console.log("Done");
+
+Output:
+
+Done
+Hello Rahul
+
+👉 The program doesn't wait. It starts reading the file in the background and immediately executes the next line.
+
+Easy example
+
+Imagine you're ordering food.
+
+readFileSync()
+
+👨 You order food and stand at the counter until it's ready.
+
+Order → Wait → Get food → Leave
+
+readFile()
+
+👨 You order food, sit at your table, and the waiter brings it when it's ready.
+
+Order → Sit → Food arrives later
+Remember
+readFileSync() = Wait
+readFile() = Don't wait
+
+For learning, readFileSync() is easier.
+
+For Express apps and real-world Node.js projects, readFile() is better because it doesn't make the whole program wait.
